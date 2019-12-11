@@ -15,6 +15,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -48,14 +49,22 @@ public class AuthorizeController {
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
         //根据token获取GitHub用户名 以及一些相应的信息
         GithubUser githubuser = githubProvider.getUser(accessToken);
-        if (githubuser != null ){
+        //获取保存时间
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        Date date = new Date();
+        String str = dateFormat.format(date);
+        Long saveTime = Long.parseLong(str);
+
+        String id = String.valueOf(githubuser.getId());
+        if (githubuser != null && id != null){
             User user = new User();
             String token = UUID.randomUUID().toString();
             user.setToken(token);
             user.setAccountId(String.valueOf(githubuser.getId()));
             user.setName(githubuser.getName());
-            user.setGmtCreate(System.currentTimeMillis());
+            user.setGmtCreate(saveTime);
             user.setGmtModified(user.getGmtCreate());
+            user.setAvatarUrl(githubuser.getAvatar_url());
             userMapper.insert(user);
             //登陆成功 写cookie session
             response.addCookie(new Cookie("token",token));
