@@ -1,17 +1,18 @@
-package com.hoodee.community.model;
+package com.hoodee.community.dto;
 
+import com.hoodee.community.model.User;
 import lombok.Data;
 
 /**
- * Package: com.hoodee.community.model
- * Description：发起问题POJO
- * Author: jianghao
- * Date:  2019.12.10 23:22
+ * Package: com.hoodee.community.dto
+ * Description：
+ * Author: wude
+ * Date:  2019.12.21 22:47
  * Modified By:
  */
 @Data
-public class Question {
-    private Long  id;
+public class QuestionDTO {
+    private int id;
     private String title;
     private String description;
     private String tag;
@@ -21,5 +22,5 @@ public class Question {
     private Integer viewCount;
     private Integer commentCount;
     private Integer likeCount;
-
+    private User user;
 }

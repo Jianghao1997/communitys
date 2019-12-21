@@ -83,13 +83,13 @@ public class PublishController {
         Date date = new Date();
         String str = dateFormat.format(date);
         Long saveTime = Long.parseLong(str);
-        
+
         Question question = new Question();
         question.setTitle(title);
         question.setDescription(description);
         question.setTag(tag);
         question.setCreator(user.getId());
-        question.setGmtCreate(saveTime);
+        question.setGmtCreate(System.currentTimeMillis());
         question.setGmtModified(question.getGmtCreate());
         questionMapper.creat(question);
         return "redirect:/";//重定向

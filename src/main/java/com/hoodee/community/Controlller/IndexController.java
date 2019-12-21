@@ -1,13 +1,19 @@
 package com.hoodee.community.Controlller;
 
+import com.hoodee.community.dto.QuestionDTO;
 import com.hoodee.community.mapper.UserMapper;
+import com.hoodee.community.mapper.questionMapper;
+import com.hoodee.community.model.Question;
 import com.hoodee.community.model.User;
+import com.hoodee.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * 首页
@@ -15,9 +21,11 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class IndexController {
     @Autowired
-    UserMapper userMapper;
+    private UserMapper userMapper;
+    @Autowired
+    private QuestionService questionService;
     @GetMapping("/")
-    public String index(HttpServletRequest request) {
+    public String index(HttpServletRequest request, Model model) {
         Cookie[] cookies = request.getCookies();
         if (cookies != null && cookies.length !=0){
             for (Cookie cookie : cookies){
@@ -32,7 +40,8 @@ public class IndexController {
 
             }
         }
-
+        List<QuestionDTO> questionList = questionService.list();
+        model.addAttribute("questions",questionList);
         return "index";
     }
 }
