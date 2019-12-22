@@ -7,3 +7,5 @@
 2.bootstrap
 
 3.Mysql H2
+
+mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
