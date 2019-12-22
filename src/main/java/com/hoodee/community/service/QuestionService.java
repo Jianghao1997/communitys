@@ -2,6 +2,8 @@ package com.hoodee.community.service;
 
 import com.hoodee.community.dto.PaginationDTO;
 import com.hoodee.community.dto.QuestionDTO;
+import com.hoodee.community.exception.CustomizeErrorCode;
+import com.hoodee.community.exception.CustomizeException;
 import com.hoodee.community.mapper.UserMapper;
 import com.hoodee.community.mapper.QuestionMapper;
 import com.hoodee.community.model.Question;
@@ -113,6 +115,9 @@ public class QuestionService {
     * */
     public QuestionDTO getByID(Integer id) {
         Question question = questionMapper.selectByPrimaryKey(id);
+        if (question == null){
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+        }
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question,questionDTO);
         //获取作者
@@ -141,7 +146,10 @@ public class QuestionService {
             updateQuestion.setTag(question.getTag());
             QuestionExample example = new QuestionExample();
             example.createCriteria().andIdEqualTo(question.getId());
-            questionMapper.updateByExampleSelective(updateQuestion, example);
+            int updated = questionMapper.updateByExampleSelective(updateQuestion, example);
+            if (updated != 1) {
+                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            }
         }
     }
 }
