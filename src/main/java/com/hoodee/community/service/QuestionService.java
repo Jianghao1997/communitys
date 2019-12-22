@@ -4,6 +4,7 @@ import com.hoodee.community.dto.PaginationDTO;
 import com.hoodee.community.dto.QuestionDTO;
 import com.hoodee.community.exception.CustomizeErrorCode;
 import com.hoodee.community.exception.CustomizeException;
+import com.hoodee.community.mapper.QuestionExtMapper;
 import com.hoodee.community.mapper.UserMapper;
 import com.hoodee.community.mapper.QuestionMapper;
 import com.hoodee.community.model.Question;
@@ -32,6 +33,8 @@ public class QuestionService {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private QuestionExtMapper questionExtMapper;
     /*
      *分页查询
      * */
@@ -151,5 +154,14 @@ public class QuestionService {
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
         }
+    }
+    /*
+    * 累加阅读数
+    * */
+    public void incView(Integer id) {
+        Question question = new Question();
+        question.setId(id);
+        question.setViewCount(1);
+        questionExtMapper.incView(question);
     }
 }
