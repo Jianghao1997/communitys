@@ -5,6 +5,7 @@ import com.hoodee.community.dto.GithubUser;
 import com.hoodee.community.mapper.UserMapper;
 import com.hoodee.community.model.User;
 import com.hoodee.community.provide.GithubProvider;
+import com.hoodee.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,9 @@ public class AuthorizeController {
     private GithubProvider githubProvider;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private UserService userService;
+
     @Value("${github.client.id}")//读取配置文件的注解
     private String clientId;
     @Value("${github.client.secret}")
@@ -37,7 +41,6 @@ public class AuthorizeController {
     @GetMapping("/callback")//参数接收
     public String callback(@RequestParam(name = "code") String code,
                            @RequestParam(name = "state") String state,
-                           HttpServletRequest request,
                            HttpServletResponse response){
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setCode(code);
@@ -62,10 +65,8 @@ public class AuthorizeController {
             user.setToken(token);
             user.setAccountId(String.valueOf(githubuser.getId()));
             user.setName(githubuser.getName());
-            user.setGmtCreate(saveTime);
-            user.setGmtModified(user.getGmtCreate());
             user.setAvatarUrl(githubuser.getAvatar_url());
-            userMapper.insert(user);
+            userService.createOrUpdate(user);
             //登陆成功 写cookie session
             response.addCookie(new Cookie("token",token));
             return "redirect:/";//重定向
@@ -73,5 +74,14 @@ public class AuthorizeController {
             //登录失败 重新登录
             return "redirect:/";//后续更改
         }
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request,HttpServletResponse response){
+        request.getSession().removeAttribute("user");
+        Cookie cookie = new Cookie("token",null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        return "redirect:/";
     }
 }

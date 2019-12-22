@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * Package: com.hoodee.community.dto
- * Description：
+ * Description：分页对象
  * Author: jianghao
  * Date:  2019.12.22 0:12
  * Modified By:
@@ -23,14 +23,8 @@ public class PaginationDTO {
     private Integer totalPage;
     private List<Integer> pages = new ArrayList<>();
 
-    public void setPagination(Integer totalCount, Integer page, Integer size) {
-
-        if (totalCount % size == 0){
-            totalPage = totalCount / size;
-        }else {
-            totalPage = totalCount / size + 1;
-        }
-
+    public void setPagination(Integer totalPage, Integer page) {
+        this.totalPage = totalPage;
         this.page = page;
 
         pages.add(page);
