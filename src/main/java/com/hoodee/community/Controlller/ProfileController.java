@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Package: com.hoodee.community.Controlller
- * Description：
+ * Description：获取我的提问详情页
  * Author: jianghao
  * Date:  2019.12.22 11:58
  * Modified By:
@@ -31,12 +31,12 @@ public class ProfileController {
                           HttpServletRequest request,
                           @RequestParam(name = "page",defaultValue = "1") Integer page,
                           @RequestParam(name = "size",defaultValue = "5") Integer size){
-
+        // 通过session获取user对象 如果为空，则重定向到首页
         User user = (User) request.getSession().getAttribute("user");
         if (user == null){
             return "redirect:/";
         }
-
+        // 通过请求的名字 实现左边表单标题动态修改
         if ("questions".equals(action)){
             model.addAttribute("section","questions");
             model.addAttribute("sectionName","我的问题");
@@ -44,7 +44,7 @@ public class ProfileController {
             model.addAttribute("section","replies");
             model.addAttribute("sectionName","最新回复");
         }
-
+        // 分页获取
         PaginationDTO paginationDTO = questionService.list(user.getId(),page,size);
         model.addAttribute("pagination",paginationDTO);
         return "profile";

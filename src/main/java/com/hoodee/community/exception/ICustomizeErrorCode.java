@@ -9,4 +9,5 @@ package com.hoodee.community.exception;
  */
 public interface ICustomizeErrorCode {
     String getMessage();
+    Integer getcode();
 }

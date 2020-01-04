@@ -4,13 +4,13 @@ import lombok.Data;
 
 /**
  * Package: com.hoodee.community.dto
- * Description：
+ * Description：评论传输对象
  * Author: wude
  * Date:  2019.12.22 23:01
  * Modified By:
  */
 @Data
-public class CommenDTO {
+public class CommentDTO {
     private Long parentId;
     private String content;
     private Integer type;

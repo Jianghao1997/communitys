@@ -76,7 +76,7 @@ public class QuestionService {
     /*
     * 分页查询
     * */
-    public PaginationDTO list(Integer userId, Integer page, Integer size) {
+    public PaginationDTO list(Long userId, Integer page, Integer size) {
         PaginationDTO paginationDTO = new PaginationDTO();
         QuestionExample questionExample = new QuestionExample();
         questionExample.createCriteria().andCreatorEqualTo(userId);
@@ -116,7 +116,7 @@ public class QuestionService {
     /*
     * 通过Id获取创建人
     * */
-    public QuestionDTO getByID(Integer id) {
+    public QuestionDTO getByID(Long id) {
         Question question = questionMapper.selectByPrimaryKey(id);
         if (question == null){
             throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
@@ -158,7 +158,7 @@ public class QuestionService {
     /*
     * 累加阅读数
     * */
-    public void incView(Integer id) {
+    public void incView(Long id) {
         Question question = new Question();
         question.setId(id);
         question.setViewCount(1);
