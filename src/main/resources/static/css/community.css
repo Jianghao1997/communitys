@@ -42,6 +42,16 @@ body{
     border-bottom: 1px solid #eee;
     padding-bottom: 5px;
 }
+.sub-comments{
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #eee;
+    padding-top: 15px;
+}
+.sub-comments .btn{
+    margin: 10px 0;
+}
 .btncomment{
     float: right;
     margin-bottom: 10px;
@@ -58,6 +68,12 @@ body{
     font-size: 15px;
     cursor: pointer;
 }
+.menu .active{
+    color: #499ef3;
+}
 .menu .icon:hover{
     color: #499ef3;
+}
+.question_title{
+    margin-top: 25px;
 }

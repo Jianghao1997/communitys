@@ -1,16 +1,20 @@
 package com.hoodee.community.Controlller;
 
 import com.hoodee.community.dto.CommentCreateDTO;
+import com.hoodee.community.dto.CommentDTO;
 import com.hoodee.community.dto.ResultDTO;
+import com.hoodee.community.enums.CommentTypeEnum;
 import com.hoodee.community.exception.CustomizeErrorCode;
 import com.hoodee.community.model.Comment;
 import com.hoodee.community.model.User;
 import com.hoodee.community.service.CommentService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Package: com.hoodee.community.Controlller
@@ -37,6 +41,10 @@ public class CommentController {
         if (user == null) {
             return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);
         }
+        // 判断回复内容是否为空
+        if (commentCreateDTO == null || StringUtils.isBlank(commentCreateDTO.getContent())){
+            return ResultDTO.errorOf(CustomizeErrorCode.COMMENT_IS_EMPTY);
+        }
         Comment comment = new Comment();
         comment.setParentid(commentCreateDTO.getParentId());
         comment.setContent(commentCreateDTO.getContent());
@@ -48,5 +56,10 @@ public class CommentController {
         commentService.insert(comment);
         return ResultDTO.okOf();
     }
-
+    @ResponseBody
+    @RequestMapping(value = "/comment/{id}", method = RequestMethod.GET)
+    public ResultDTO<List<CommentDTO>> comments(@PathVariable(name = "id") Long id){
+        List<CommentDTO> commentDTOS = commentService.listByTargetId(id, CommentTypeEnum.COMMENT);
+        return ResultDTO.okOf(commentDTOS);
+    }
 }

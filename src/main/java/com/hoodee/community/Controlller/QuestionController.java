@@ -1,8 +1,8 @@
 package com.hoodee.community.Controlller;
 
-import com.hoodee.community.dto.CommentCreateDTO;
 import com.hoodee.community.dto.CommentDTO;
 import com.hoodee.community.dto.QuestionDTO;
+import com.hoodee.community.enums.CommentTypeEnum;
 import com.hoodee.community.service.CommentService;
 import com.hoodee.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,15 +29,13 @@ public class QuestionController {
     private CommentService commentService;
 
     @GetMapping("/question/{id}")
-    public String question(@PathVariable(name = "id") String  id,
+    public String question(@PathVariable(name = "id") Long  id,
                            Model model){
-        Long questionId = null;
-        questionId = Long.parseLong(id);
-        QuestionDTO questionDTO = questionService.getByID(questionId);
-
-        List<CommentDTO> comments =  commentService.listByQuestionId(questionId);
+        QuestionDTO questionDTO = questionService.getByID(id);
+        // 评论列表展示
+        List<CommentDTO> comments =  commentService.listByTargetId(id, CommentTypeEnum.QUESTION);
         // 累加阅读数
-        questionService.incView(questionId);
+        questionService.incView(id);
         model.addAttribute("question",questionDTO);
         model.addAttribute("comments",comments);
         return "question";
