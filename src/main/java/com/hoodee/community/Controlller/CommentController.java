@@ -46,13 +46,13 @@ public class CommentController {
             return ResultDTO.errorOf(CustomizeErrorCode.COMMENT_IS_EMPTY);
         }
         Comment comment = new Comment();
-        comment.setParentid(commentCreateDTO.getParentId());
+        comment.setParentId(commentCreateDTO.getParentId());
         comment.setContent(commentCreateDTO.getContent());
         comment.setType(commentCreateDTO.getType());
         comment.setGmtModified(System.currentTimeMillis());
         comment.setGmtCreate(System.currentTimeMillis());
         comment.setCommentator(user.getId());
-        comment.setLikecount(0L);
+        comment.setLikeCount(0L);
         commentService.insert(comment);
         return ResultDTO.okOf();
     }
