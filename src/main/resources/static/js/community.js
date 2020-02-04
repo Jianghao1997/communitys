@@ -121,3 +121,26 @@ function collapseComments(e) {
         }
     }
 }
+
+/**
+ * 展示标签
+ */
+function showSelectTag() {
+    $("#select-tag").show();
+}
+
+/**
+ * 选择标签
+ * @param e
+ */
+function selectTag(e) {
+    var value = e.getAttribute("data-tag");
+    var previous = $("#tag").val();
+    if (previous.indexOf(value) == -1) {
+        if (previous) {
+            $("#tag").val(previous + ',' + value);
+        } else {
+            $("#tag").val(value);
+        }
+    }
+}
