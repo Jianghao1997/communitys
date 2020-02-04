@@ -1,4 +1,4 @@
-package com.hoodee.community.Controlller;
+package com.hoodee.community.controlller;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Package: com.hoodee.community.Controlller
+ * Package: com.hoodee.community.controlller
  * Description：错误请求白页
  * Author: jianghao
  * Date:  2019.12.22 21:43

@@ -1,4 +1,4 @@
-package com.hoodee.community.Controlller;
+package com.hoodee.community.controlller;
 
 import com.hoodee.community.dto.CommentCreateDTO;
 import com.hoodee.community.dto.CommentDTO;
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * Package: com.hoodee.community.Controlller
+ * Package: com.hoodee.community.controlller
  * Description：回复Controller
  * Author: jianghao
  * Date:  2019.12.22 22:54

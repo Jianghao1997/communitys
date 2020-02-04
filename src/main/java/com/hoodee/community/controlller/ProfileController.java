@@ -1,4 +1,4 @@
-package com.hoodee.community.Controlller;
+package com.hoodee.community.controlller;
 
 import com.hoodee.community.dto.PaginationDTO;
 import com.hoodee.community.model.User;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Package: com.hoodee.community.Controlller
+ * Package: com.hoodee.community.controlller
  * Description：获取我的提问详情页
  * Author: jianghao
  * Date:  2019.12.22 11:58

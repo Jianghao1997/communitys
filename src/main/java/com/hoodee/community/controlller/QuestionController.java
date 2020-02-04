@@ -1,4 +1,4 @@
-package com.hoodee.community.Controlller;
+package com.hoodee.community.controlller;
 
 import com.hoodee.community.dto.CommentDTO;
 import com.hoodee.community.dto.QuestionDTO;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 /**
- * Package: com.hoodee.community.Controlller
+ * Package: com.hoodee.community.controlller
  * Description：
  * Author: jianghao
  * Date:  2019.12.22 13:56

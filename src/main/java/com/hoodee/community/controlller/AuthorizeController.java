@@ -1,4 +1,4 @@
-package com.hoodee.community.Controlller;
+package com.hoodee.community.controlller;
 
 import com.hoodee.community.dto.AccessTokenDTO;
 import com.hoodee.community.dto.GithubUser;

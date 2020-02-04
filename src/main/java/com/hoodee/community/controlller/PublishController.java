@@ -1,4 +1,4 @@
-package com.hoodee.community.Controlller;
+package com.hoodee.community.controlller;
 
 import com.hoodee.community.dto.QuestionDTO;
 import com.hoodee.community.model.Question;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Package: com.hoodee.community.Controlller
+ * Package: com.hoodee.community.controlller
  * Description：发起问题页controller
  * Author: jianghao
  * Date:  2019.12.09 23:32
