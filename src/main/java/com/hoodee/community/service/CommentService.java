@@ -101,6 +101,7 @@ public class CommentService {
      * @param outerId
      */
     private void createNotify(Comment comment, Long receiver, String outerTitle, String notifierName, NotificationTypeEnum notificationType, Long outerId) {
+        // 如果同一人回复则直接return
         if (receiver == comment.getCommentator()){
             return;
         }

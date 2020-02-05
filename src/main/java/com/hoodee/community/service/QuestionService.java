@@ -2,6 +2,7 @@ package com.hoodee.community.service;
 
 import com.hoodee.community.dto.PaginationDTO;
 import com.hoodee.community.dto.QuestionDTO;
+import com.hoodee.community.dto.QuestionQueryDTO;
 import com.hoodee.community.exception.CustomizeErrorCode;
 import com.hoodee.community.exception.CustomizeException;
 import com.hoodee.community.mapper.QuestionExtMapper;
@@ -38,6 +39,7 @@ public class QuestionService {
 
     @Autowired
     private UserMapper userMapper;
+
     @Autowired
     private QuestionExtMapper questionExtMapper;
 
@@ -47,40 +49,48 @@ public class QuestionService {
      * @param size
      * @return
      */
-    public PaginationDTO list(Integer page, Integer size) {
+    public PaginationDTO list(String search,Integer page, Integer size) { if (StringUtils.isNotBlank(search)) {
+        String[] tags = StringUtils.split(search, " ");
+        search = Arrays.stream(tags).collect(Collectors.joining("|"));
+    }
 
         PaginationDTO paginationDTO = new PaginationDTO();
-        Integer totalCount = (int)questionMapper.countByExample(new QuestionExample());
 
         Integer totalPage;
-        if (totalCount % size == 0){
+
+        QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
+        questionQueryDTO.setSearch(search);
+
+        Integer totalCount = questionExtMapper.countBySearch(questionQueryDTO);
+
+        if (totalCount % size == 0) {
             totalPage = totalCount / size;
-        }else {
+        } else {
             totalPage = totalCount / size + 1;
         }
 
-        if (page < 1){
+        if (page < 1) {
             page = 1;
         }
-        if (page > totalPage){
+        if (page > totalPage) {
             page = totalPage;
         }
 
-        paginationDTO.setPagination(totalPage,page);
-        Integer offset = size * (page-1);
+        paginationDTO.setPagination(totalPage, page);
+        Integer offset = size * (page - 1);
+        questionQueryDTO.setSize(size);
+        questionQueryDTO.setPage(offset);
+        List<Question> questions = questionExtMapper.selectBySearch(questionQueryDTO);
+        List<QuestionDTO> questionDTOList = new ArrayList<>();
 
-        QuestionExample questionExample = new QuestionExample();
-        questionExample.setOrderByClause("gmt_create desc");
-        List<Question> questions = questionMapper.selectByExampleWithRowbounds(questionExample, new RowBounds(offset, size));
-        List<QuestionDTO> questionDTOList =new ArrayList<>();
-
-        for (Question question : questions){
-         User user = userMapper.selectByPrimaryKey(question.getCreator());
+        for (Question question : questions) {
+            User user = userMapper.selectByPrimaryKey(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
-            BeanUtils.copyProperties(question,questionDTO);// question中的对象拷贝到questionDTO
+            BeanUtils.copyProperties(question, questionDTO);
             questionDTO.setUser(user);
             questionDTOList.add(questionDTO);
         }
+
         paginationDTO.setData(questionDTOList);
         return paginationDTO;
     }
