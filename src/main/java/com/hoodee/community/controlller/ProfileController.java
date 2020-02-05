@@ -1,7 +1,9 @@
 package com.hoodee.community.controlller;
 
 import com.hoodee.community.dto.PaginationDTO;
+import com.hoodee.community.model.Notification;
 import com.hoodee.community.model.User;
+import com.hoodee.community.service.NotificationService;
 import com.hoodee.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +27,8 @@ public class ProfileController {
 
     @Autowired
     private QuestionService questionService;
+    @Autowired
+    private NotificationService notificationService;
 
     @GetMapping("/profile/{action}")
     public String profile(@PathVariable(name = "action") String action, Model model,
@@ -40,13 +44,19 @@ public class ProfileController {
         if ("questions".equals(action)){
             model.addAttribute("section","questions");
             model.addAttribute("sectionName","我的问题");
+            // 分页获取
+            PaginationDTO paginationDTO = questionService.list(user.getId(),page,size);
+            model.addAttribute("pagination",paginationDTO);
         }else if ("replies".equals(action)){
+
+            PaginationDTO paginationDTO = notificationService.list(user.getId(),page,size);
+            Long unreadCount = notificationService.unreadCount(user.getId());
             model.addAttribute("section","replies");
+            model.addAttribute("pagination",paginationDTO);
+            model.addAttribute("unreadCount",unreadCount);
             model.addAttribute("sectionName","最新回复");
         }
-        // 分页获取
-        PaginationDTO paginationDTO = questionService.list(user.getId(),page,size);
-        model.addAttribute("pagination",paginationDTO);
+
         return "profile";
     }
 }
