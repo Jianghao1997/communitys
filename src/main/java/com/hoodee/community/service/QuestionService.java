@@ -40,9 +40,13 @@ public class QuestionService {
     private UserMapper userMapper;
     @Autowired
     private QuestionExtMapper questionExtMapper;
-    /*
-     *分页查询
-     * */
+
+    /**
+     * 分页查询出问题
+     * @param page
+     * @param size
+     * @return
+     */
     public PaginationDTO list(Integer page, Integer size) {
 
         PaginationDTO paginationDTO = new PaginationDTO();
@@ -80,9 +84,14 @@ public class QuestionService {
         paginationDTO.setData(questionDTOList);
         return paginationDTO;
     }
-    /*
-    * 分页查询
-    * */
+
+    /**
+     * 根据用户id查询出问题列表
+     * @param userId
+     * @param page
+     * @param size
+     * @return
+     */
     public PaginationDTO list(Long userId, Integer page, Integer size) {
         PaginationDTO paginationDTO = new PaginationDTO();
         QuestionExample questionExample = new QuestionExample();
@@ -120,9 +129,12 @@ public class QuestionService {
         paginationDTO.setData(questionDTOList);
         return paginationDTO;
     }
-    /*
-    * 通过Id获取创建人
-    * */
+
+    /**
+     * 通过Id获取创建人
+     * @param id
+     * @return
+     */
     public QuestionDTO getByID(Long id) {
         Question question = questionMapper.selectByPrimaryKey(id);
         if (question == null){
@@ -136,10 +148,11 @@ public class QuestionService {
 
         return questionDTO;
     }
-    /*
-    * 创建或者更新问题
-    *
-    * */
+
+    /**
+     * 创建或者更新问题
+     * @param question
+     */
     public void createOrUpdate(Question question) {
         if (question.getId() == null){
             // 创建

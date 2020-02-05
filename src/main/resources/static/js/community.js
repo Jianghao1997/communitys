@@ -144,3 +144,21 @@ function selectTag(e) {
         }
     }
 }
+
+/**
+ * 发布校验
+ */
+function publish() {
+    var title = $("#title").val();
+    if (title == null || title == "") {
+        alert("请输入标题！")
+    }
+    var description = $("#description").val();
+    if (description == null || description == "") {
+        alert("请输入内容！")
+    }
+    var tag = $("#tag").val();
+    if (tag == null || tag == "") {
+        alert("请添加一个或多个标签！")
+    }
+}

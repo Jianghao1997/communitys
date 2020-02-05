@@ -20,12 +20,16 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
+    /**
+     * 新建或者更新用户信息到数据库中
+     * @param user
+     */
     public void createOrUpdate(User user) {
         UserExample userExample = new UserExample();
         userExample.createCriteria().andAccountIdEqualTo(user.getAccountId());
         List<User> users = userMapper.selectByExample(userExample);
         if (users.size() == 0){
-          //新建插入
+          //新建
           user.setGmtCreate(System.currentTimeMillis());
           user.setGmtModified(user.getGmtCreate());
           userMapper.insert(user);

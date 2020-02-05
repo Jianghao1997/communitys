@@ -41,6 +41,11 @@ public class CommentService {
     @Autowired
     private NotificationMapper notificationMapper;
 
+    /**
+     * 回复/评论插入
+     * @param comment
+     * @param commentator
+     */
     @Transactional // 事务注解
     public void insert(Comment comment, User commentator) {
         if (comment.getParentId() == null || comment.getParentId() == 0){
@@ -108,6 +113,12 @@ public class CommentService {
         notificationMapper.insert(notification);
     }
 
+    /**
+     * 查询评论回复列表
+     * @param id
+     * @param type
+     * @return
+     */
     public List<CommentDTO> listByTargetId(Long id, CommentTypeEnum type) {
         CommentExample commentExample = new CommentExample();
         commentExample.createCriteria().andParentIdEqualTo(id).andTypeEqualTo(type.getType());

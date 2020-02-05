@@ -33,6 +33,13 @@ public class NotificationService {
     @Autowired
     private NotificationMapper notificationMapper;
 
+    /**
+     * 展示未读消息列表
+     * @param userId
+     * @param page
+     * @param size
+     * @return
+     */
     public PaginationDTO list(Long userId, Integer page, Integer size) {
 
         PaginationDTO<NotificationDTO> paginationDTO = new PaginationDTO<>();
@@ -84,6 +91,11 @@ public class NotificationService {
         return paginationDTO;
     }
 
+    /**
+     * 取得未读数量
+     * @param userId
+     * @return
+     */
     public Long unreadCount(Long userId) {
         NotificationExample notificationExample = new NotificationExample();
         notificationExample.createCriteria()
@@ -92,6 +104,12 @@ public class NotificationService {
         return notificationMapper.countByExample(notificationExample);
     }
 
+    /**
+     * 更新已读
+     * @param id
+     * @param user
+     * @return
+     */
     public NotificationDTO read(Long id, User user) {
         Notification notification = notificationMapper.selectByPrimaryKey(id);
         if (notification == null) {
