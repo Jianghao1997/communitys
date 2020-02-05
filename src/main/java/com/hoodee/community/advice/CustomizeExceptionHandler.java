@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.hoodee.community.dto.ResultDTO;
 import com.hoodee.community.exception.CustomizeErrorCode;
 import com.hoodee.community.exception.CustomizeException;
-import org.springframework.http.HttpStatus;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -23,6 +23,7 @@ import java.io.PrintWriter;
  * Modified By:
  */
 @ControllerAdvice
+@Slf4j
 public class CustomizeExceptionHandler {
 
     @ExceptionHandler(Exception.class)
@@ -34,6 +35,7 @@ public class CustomizeExceptionHandler {
             if (ex instanceof CustomizeException) {
                 resultDTO = ResultDTO.errorOf((CustomizeException) ex);
             } else {
+                log.error("处理错误", ex);
                 resultDTO = ResultDTO.errorOf(CustomizeErrorCode.SYS_ERROR);
             }
             try {
@@ -52,6 +54,7 @@ public class CustomizeExceptionHandler {
             if (ex instanceof CustomizeException) {
                 model.addAttribute("message", ex.getMessage());
             } else {
+                log.error("处理错误", ex);
                 model.addAttribute("message", CustomizeErrorCode.SYS_ERROR.getMessage());
             }
             return new ModelAndView("error");

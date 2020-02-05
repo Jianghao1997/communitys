@@ -6,6 +6,7 @@ import com.hoodee.community.mapper.UserMapper;
 import com.hoodee.community.model.User;
 import com.hoodee.community.provide.GithubProvider;
 import com.hoodee.community.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ import java.util.UUID;
  * 登录controller，根据GitHub api调用回调函数
  */
 @Controller
+@Slf4j
 public class AuthorizeController {
     @Autowired
     private GithubProvider githubProvider;
@@ -71,6 +73,7 @@ public class AuthorizeController {
             response.addCookie(new Cookie("token",token));
             return "redirect:/";//重定向
         }else {
+            log.error("callback get github error,{}", githubuser);
             //登录失败 重新登录
             return "redirect:/";//后续更改
         }

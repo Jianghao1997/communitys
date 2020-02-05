@@ -12,6 +12,7 @@ import com.hoodee.community.model.Question;
 import com.hoodee.community.model.QuestionExample;
 import com.hoodee.community.model.User;
 import com.sun.xml.internal.messaging.saaj.packaging.mime.util.BEncoderStream;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
@@ -32,6 +33,7 @@ import java.util.stream.Collectors;
  * Modified By:
  */
 @Service
+@Slf4j
 public class QuestionService {
 
     @Autowired
@@ -92,6 +94,7 @@ public class QuestionService {
         }
 
         paginationDTO.setData(questionDTOList);
+        log.info(paginationDTO.toString());
         return paginationDTO;
     }
 
