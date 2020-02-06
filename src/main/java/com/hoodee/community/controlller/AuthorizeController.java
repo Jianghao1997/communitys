@@ -50,15 +50,11 @@ public class AuthorizeController {
         accessTokenDTO.setRedirect_url(rediretUrl);
         accessTokenDTO.setClient_id(clientId);
         accessTokenDTO.setClient_secret(clientSecret);
+        log.info("github用户详情 {}",accessTokenDTO.toString());
         //获取github token
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
         //根据token获取GitHub用户名 以及一些相应的信息
         GithubUser githubuser = githubProvider.getUser(accessToken);
-        //获取保存时间
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-        Date date = new Date();
-        String str = dateFormat.format(date);
-        Long saveTime = Long.parseLong(str);
 
         String id = String.valueOf(githubuser.getId());
         if (githubuser != null && id != null){

@@ -96,7 +96,6 @@ public class QuestionService {
         }
 
         paginationDTO.setData(questionDTOList);
-        log.info(paginationDTO.toString());
         return paginationDTO;
     }
 

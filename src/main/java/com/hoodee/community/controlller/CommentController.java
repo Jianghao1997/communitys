@@ -8,6 +8,7 @@ import com.hoodee.community.exception.CustomizeErrorCode;
 import com.hoodee.community.model.Comment;
 import com.hoodee.community.model.User;
 import com.hoodee.community.service.CommentService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ import java.util.List;
  * Modified By:
  */
 @Controller
+@Slf4j
 public class CommentController {
 
     @Autowired
@@ -53,6 +55,7 @@ public class CommentController {
         comment.setGmtCreate(System.currentTimeMillis());
         comment.setCommentator(user.getId());
         comment.setLikeCount(0L);
+        log.info("第一回复内容：{}",comment.toString());
         commentService.insert(comment,user);
         return ResultDTO.okOf();
     }

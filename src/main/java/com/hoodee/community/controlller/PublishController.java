@@ -5,6 +5,7 @@ import com.hoodee.community.dto.QuestionDTO;
 import com.hoodee.community.model.Question;
 import com.hoodee.community.model.User;
 import com.hoodee.community.service.QuestionService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
  * Modified By:
  */
 @Controller
+@Slf4j
 public class PublishController {
 
     @Autowired
@@ -92,6 +94,7 @@ public class PublishController {
         question.setCreator(user.getId());
         question.setId(id);
 
+        log.info("新增问题内容：{}",question.toString());
         questionService.createOrUpdate(question);
         return "redirect:/";//重定向
     }
