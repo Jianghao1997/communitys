@@ -11,7 +11,6 @@ import com.hoodee.community.mapper.QuestionMapper;
 import com.hoodee.community.model.Question;
 import com.hoodee.community.model.QuestionExample;
 import com.hoodee.community.model.User;
-import com.sun.xml.internal.messaging.saaj.packaging.mime.util.BEncoderStream;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
@@ -22,7 +21,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.StringJoiner;
+
 import java.util.stream.Collectors;
 
 /**
