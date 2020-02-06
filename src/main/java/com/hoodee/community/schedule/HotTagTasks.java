@@ -15,7 +15,7 @@ import java.util.*;
 
 /**
  * Package: com.hoodee.community.schedule
- * Description：
+ * Description：热门话题定时任务
  * Author: jianghao
  * Date:  2020.02.06 14:35
  * Modified By:
@@ -30,6 +30,7 @@ public class HotTagTasks {
     @Autowired
     private HotTagCache hotTagCache;
 
+    // 每三个小时更新一次
     @Scheduled(fixedRate = 1000 * 60 * 60 * 3)
     public void hotTagSchedule() {
         int offset = 0;

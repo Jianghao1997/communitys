@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * Package: com.hoodee.community.dto
- * Description：
+ * Description：标签传输对象
  * Author: jianghao
  * Date:  2020.02.04 15:35
  * Modified By:

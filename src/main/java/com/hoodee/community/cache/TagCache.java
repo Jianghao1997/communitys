@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 /**
  * Package: com.hoodee.community.cache
- * Description：
+ * Description：标签缓存
  * Author: jianghao
  * Date:  2020.02.04 15:36
  * Modified By:

@@ -8,7 +8,7 @@ import java.util.*;
 
 /**
  * Package: com.hoodee.community.cache
- * Description：
+ * Description：热门话题缓存处理
  * Author: jianghao
  * Date:  2020.02.06 14:19
  * Modified By:
@@ -18,6 +18,10 @@ import java.util.*;
 public class HotTagCache {
     private List<String> hots = new ArrayList<>();
 
+    /**
+     * 标签：热门算法
+     * @param tags
+     */
     public void updateTags(Map<String, Integer> tags) {
         int max = 10;
         PriorityQueue<HotTagDTO> priorityQueue = new PriorityQueue<>(max);
