@@ -70,7 +70,9 @@ public class AuthorizeController {
             user.setAvatarUrl(githubuser.getAvatar_url());
             userService.createOrUpdate(user);
             //登陆成功 写cookie session
-            response.addCookie(new Cookie("token",token));
+            Cookie cookie = new Cookie("token", token);
+            cookie.setMaxAge(60 * 60 * 24 * 30 * 6);
+            response.addCookie(cookie);
             return "redirect:/";//重定向
         }else {
             log.error("callback get github error,{}", githubuser);
